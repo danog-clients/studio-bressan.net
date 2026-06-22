@@ -1,0 +1,17 @@
+{
+  "name": "studio-bressan",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Sito web dello Studio Bressan — Dott.ssa Romina Bressan, Commercialista e Revisore Legale (Rovigo).",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=studio-bressan"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0",
+    "wrangler": "^3.90.0"
+  }
+}

@@ -1,0 +1,158 @@
+:root {
+  --brand-red: #d3001c;
+  --ink: #15161a;
+  --muted: #6b7077;
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --border: #e7e9ee;
+  --radius: 18px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(60rem 60rem at 50% -20%, #ffffff 0%, var(--bg) 60%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.page {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.card {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(2rem, 6vw, 3.5rem) clamp(1.5rem, 6vw, 3rem);
+  text-align: center;
+  box-shadow:
+    0 1px 2px rgba(20, 22, 26, 0.04),
+    0 18px 40px -24px rgba(20, 22, 26, 0.25);
+}
+
+.logo {
+  width: min(320px, 78%);
+  height: auto;
+  margin: 0 auto 1.75rem;
+  display: block;
+}
+
+.name {
+  margin: 0;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.role {
+  margin: 0.4rem 0 0;
+  font-size: clamp(0.95rem, 3vw, 1.1rem);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.divider {
+  width: 56px;
+  height: 3px;
+  border: 0;
+  margin: 1.75rem auto;
+  background: var(--brand-red);
+  border-radius: 2px;
+}
+
+.contacts {
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.contacts p {
+  margin: 0.25rem 0;
+}
+
+.city {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.address a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.address a:hover {
+  text-decoration: underline;
+}
+
+.phone {
+  margin-top: 0.6rem !important;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.phone a {
+  color: var(--brand-red);
+  text-decoration: none;
+}
+
+.phone a:hover {
+  text-decoration: underline;
+}
+
+.email {
+  margin-top: 0.35rem !important;
+  font-size: 1rem;
+}
+
+.email a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.email a:hover {
+  text-decoration: underline;
+}
+
+.soon {
+  margin: 2rem 0 0;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.footer {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.footer p {
+  margin: 0;
+}
