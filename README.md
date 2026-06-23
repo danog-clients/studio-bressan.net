@@ -10,7 +10,7 @@ costruito per crescere facilmente verso un sito completo.
 
 - **[Vite](https://vite.dev/)** — dev server + build statico (nessun framework).
 - HTML / CSS / JS vanilla, zero dipendenze a runtime.
-- Deploy su **Cloudflare Pages** (output statico).
+- Deploy su **GitHub Pages** (output statico).
 
 Scelta volutamente minimale: nessuna complessità superflua oggi, ma con un build
 step reale e una struttura pronta per aggiungere pagine e componenti domani.
@@ -29,27 +29,68 @@ npm run build    # genera la cartella dist/
 npm run preview  # anteprima locale della build di produzione
 ```
 
-## Deploy su Cloudflare Pages
+## Deploy su GitHub Pages
 
-### Opzione A — da riga di comando (Wrangler)
+Il repository di pubblicazione è:
 
-```bash
-npm run deploy   # build + wrangler pages deploy dist
+```text
+git@github.com:danog-clients/studio-bressan.net.git
 ```
 
-Richiede un login una tantum: `npx wrangler login`.
+### Prima pubblicazione
 
-### Opzione B — Git integration (consigliata)
+```bash
+npm run deploy
+```
 
-Collega questo repository in **Cloudflare Dashboard → Pages → Create project →
-Connect to Git** con queste impostazioni:
+Lo script esegue una build locale e poi pubblica il commit corrente su
+`danog-clients/studio-bressan.net`, branch `main`.
 
-| Impostazione         | Valore          |
-| -------------------- | --------------- |
-| Build command        | `npm run build` |
-| Build output directory | `dist`        |
+Se preferisci configurare il remote una volta sola:
 
-Ogni push sul branch principale pubblica automaticamente.
+```bash
+git remote add pages git@github.com:danog-clients/studio-bressan.net.git
+git push pages HEAD:main
+```
+
+### Deploy automatico
+
+Il workflow `.github/workflows/pages.yml`:
+
+- installa le dipendenze con `npm ci`;
+- genera la build con `npm run build`;
+- pubblica `dist/` su GitHub Pages con le Actions ufficiali di GitHub.
+
+Nel repository GitHub:
+
+- abilita **Settings → Pages → Build and deployment → Source: GitHub Actions**;
+- imposta **Settings → Pages → Custom domain** su `studio-bressan.net`;
+- abilita **Enforce HTTPS** quando GitHub lo rende disponibile.
+
+### Dominio
+
+`studio-bressan.net` è un dominio apex. Nel DNS, configura `@` verso GitHub
+Pages con record `A`:
+
+```text
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+
+Se vuoi supportare anche IPv6, aggiungi record `AAAA`:
+
+```text
+2606:50c0:8000::153
+2606:50c0:8001::153
+2606:50c0:8002::153
+2606:50c0:8003::153
+```
+
+Il file `public/CNAME` mantiene il dominio custom nel build artifact, ma con
+GitHub Actions la configurazione effettiva va impostata anche in **Settings →
+Pages**.
 
 ## Struttura
 
@@ -63,9 +104,10 @@ Ogni push sul branch principale pubblica automaticamente.
 │   ├── logo.png
 │   ├── favicon.ico / favicon-32.png / apple-touch-icon.png
 │   ├── robots.txt / sitemap.xml
-│   └── _headers        # header HTTP per Cloudflare Pages
+│   └── CNAME           # dominio custom GitHub Pages
+├── .github/workflows/
+│   └── pages.yml       # build + deploy su GitHub Pages
 ├── vite.config.js
-├── wrangler.toml
 └── package.json
 ```
 
@@ -75,4 +117,4 @@ Ogni push sul branch principale pubblica automaticamente.
   `vite.config.js → build.rollupOptions.input`.
 - Aggiornare `public/sitemap.xml` quando si aggiungono pagine.
 - Per contenuti dinamici o componenti, è possibile introdurre un framework
-  (es. Astro/React) mantenendo Vite e Cloudflare Pages.
+  (es. Astro/React) mantenendo Vite e GitHub Pages.
